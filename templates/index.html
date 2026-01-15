@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Rating System</title>
+</head>
+<body>
+    <h1>SSUET Movie Portal</h1>
+    <hr>
+    <h3>Available Movies:</h3>
+    <ul>
+        {% for movie in movies %}
+            <li><strong>{{ movie.title }}</strong> - ⭐ {{ movie.rating }} (City: {{ movie.city }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
