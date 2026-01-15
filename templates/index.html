@@ -1,16 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Movie Rating System</title>
-</head>
-<body>
-    <h1>SSUET Movie Portal</h1>
-    <hr>
-    <h3>Available Movies:</h3>
-    <ul>
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; background-position: center; padding: 100px 5%; text-align: center;">
+    <h1 style="font-size: 3rem; margin-bottom: 10px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">Find Ratings & Showtimes</h1>
+    <p style="color: #ccc; font-size: 1.1rem; margin-bottom: 30px;">Precision Movie Portal for Karachi, Lahore & Islamabad</p>
+    
+    <form action="/" method="get" style="max-width: 600px; margin: 0 auto; display: flex; gap: 10px;">
+        <input type="text" name="city" placeholder="Search by City (e.g. Karachi)..." 
+               style="flex: 1; padding: 15px 25px; border-radius: 30px; border: none; background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; border: 1px solid #444; outline: none;">
+        <button type="submit" class="auth-btn" style="background: var(--primary); border: none; color: white; cursor: pointer; padding: 0 30px; border-radius: 30px;">Search</button>
+    </form>
+</section>
+
+<div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <h2 style="border-left: 4px solid var(--primary); padding-left: 15px;">Trending in Movie Portal</h2>
+        {% if request.args.get('city') %}
+            <a href="/" style="color: var(--primary); text-decoration: none; font-size: 0.9rem;">View All Movies</a>
+        {% endif %}
+    </div>
+    
+    <div class="movie-grid">
         {% for movie in movies %}
-            <li><strong>{{ movie.title }}</strong> - ⭐ {{ movie.rating }} (City: {{ movie.city }})</li>
+        <div class="movie-card">
+            <div class="poster-container">
+                <img src="{{ url_for('static', filename='images/' + movie.poster_image) }}" 
+                     alt="{{ movie.title }}" class="movie-poster">
+            </div>
+            <div class="movie-info">
+                <div class="movie-title">{{ movie.title }}</div>
+                <div style="margin-top: 10px;">
+                    <span class="badge">⭐ {{ movie.rating }}</span>
+                    <span class="city-tag">📍 {{ movie.city }}</span>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 50px; color: #666;">
+            <p>No movies found in that city. Try Karachi or Lahore!</p>
+        </div>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </div>
+</div>
+
+{% endblock %}

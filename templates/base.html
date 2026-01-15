@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Rating System | SSUET</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">MOVIE<span style="color:white">PORTAL</span></a>
+            
+            <div class="nav-links">
+                <a href="/">Home</a>
+                {% if current_user.is_authenticated %}
+                    <span class="user-welcome">Welcome, {{ current_user.username }}</span>
+                    <a href="{{ url_for('logout') }}" class="auth-btn logout">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="auth-btn">Login</a>
+                    <a href="{{ url_for('signup') }}" class="auth-btn signup-outline">Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>© 2026 SSUET Project - Batch 2025F-BCIS</p>
+        <p style="font-size:0.8rem; color:#666;">Developed by Saad Shaheen, Mir Taqi Ali, & Yazdan Naeem | Instructor: Ms. Amna Ajmal</p>
+    </footer>
+
+</body>
+</html>
